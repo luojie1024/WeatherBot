@@ -1,7 +1,5 @@
 # Rasa WeatherBot
 
-### [Go To Docs](https://core.rasa.ai)
-
 ## Introduction
 
 A simple Chinese weather robot (chatbot) built using Rasa technology stack (Rasa2.0, Rasa X, Slack) 
