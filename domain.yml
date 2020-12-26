@@ -1,0 +1,96 @@
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true
+intents:
+- greet
+- goodbye
+- affirm
+- deny
+- mood_great
+- mood_unhappy
+- bot_challenge
+- thanks
+- chitchat
+- stop
+- request_weather
+- inform
+entities:
+- date_time
+- address
+slots:
+  date_time:
+    type: any
+    auto_fill: false
+    influence_conversation: false
+  address:
+    type: any
+    auto_fill: false
+    influence_conversation: false
+  requested_slot:
+    type: any
+    influence_conversation: false
+responses:
+  utter_cheer_up:
+  - image: https://i.imgur.com/nGF1K8f.jpg
+    text: 这是一些图片：
+  utter_did_that_help:
+  - text: 这对你有帮助么？
+  utter_iamabot:
+  - text: 我是个机器人
+  utter_affirm:
+  - text: 嗯嗯，好的！
+  - text: 嗯嗯，很开心能够帮您解决问题~
+  - text: 嗯嗯，还需要什么我能够帮助您的呢？
+  utter_happy:
+  - text: 那很好哦
+  - text: 真为你开心
+  utter_greet:
+  - text: 您好！请问我可以帮到您吗？
+  - text: 您好！很高兴为您服务。请说出您要查询的功能？
+  utter_goodbye:
+  - text: 再见
+  - text: 拜拜
+  - text: 虽然我有万般舍不得，但是天下没有不散的宴席~祝您安好！
+  - text: 期待下次再见！
+  - text: 嗯嗯，下次需要时随时记得我哟~
+  - text: see you!
+  utter_deny:
+  - text: 主人，您不开心吗？不要离开我哦
+  - text: 怎么了，主人？
+  utter_thanks:
+  - text: 嗯呢。不用客气~
+  - text: 这是我应该做的，主人~
+  - text: 嗯嗯，合作愉快！
+  utter_ask_date_time:
+  - text: 请问您要查询哪一天的天气？
+  utter_ask_address:
+  - text: 请问您要查下哪里的天气？
+  utter_default:
+  - text: 没听懂，请换种说法吧~
+  utter_ask_continue:
+  - text: 请问您还要继续吗?
+  utter_noworries:
+  - text: 不用客气 :)
+  - text: 没事啦
+  - text: 不客气哈，都是老朋友了 :)
+  utter_chitchat:
+  - text: 呃呃呃呃呃
+  - text: 您这是在尬聊吗？
+actions:
+- utter_affirm
+- utter_deny
+- utter_greet
+- utter_happy
+- utter_goodbye
+- utter_thanks
+- utter_ask_date_time
+- utter_ask_address
+- weather_form
+- utter_chitchat
+- utter_noworries
+- utter_ask_continue
+- utter_iamabot
+- utter_did_that_help
+- utter_cheer_up
+forms:
+  weather_form: {}

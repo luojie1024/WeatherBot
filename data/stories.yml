@@ -1,0 +1,526 @@
+version: "2.0"
+
+stories:
+
+- story: happy path 1
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: mood_great
+  - action: utter_happy
+
+- story: sad path 1
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: mood_unhappy
+  - action: utter_cheer_up
+  - action: utter_did_that_help
+  - intent: affirm
+  - action: utter_happy
+
+- story: sad path 2
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: mood_unhappy
+  - action: utter_cheer_up
+  - action: utter_did_that_help
+  - intent: deny
+  - action: utter_ask_continue
+  - intent: deny
+
+- story: bye
+  steps:
+  - intent: goodbye
+  - action: utter_goodbye
+
+- story: botchallege
+  steps:
+  - intent: bot_challenge
+  - action: utter_iamabot
+
+- story: thanks
+  steps:
+    - intent: thanks
+    - action: utter_noworries
+
+- story: unhappy path3
+  steps:
+    - intent: greet
+    - action: utter_greet
+    - intent: request_weather
+    - action: weather_form
+    - active_loop: weather_form
+    - intent: chitchat
+    - action: utter_chitchat
+    - action: weather_form
+    - active_loop: null
+    - intent: thanks
+    - action: utter_noworries
+
+- story: weather_story1
+  steps:
+  - intent: request_weather
+  - action: weather_form
+  - active_loop: weather_form
+  - slot_was_set:
+    - requested_slot: date_time
+  - slot_was_set:
+    - date_time: 明天
+  - slot_was_set:
+    - requested_slot: address
+  - slot_was_set:
+    - address: 广州
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - or:
+    - intent: inform
+      entities:
+      - date_time: 后天
+    - intent: request_weather
+      entities:
+      - date_time: 后天
+  - action: weather_form
+  - active_loop: weather_form
+  - slot_was_set:
+    - date_time: 明天
+  - slot_was_set:
+    - address: 广州
+  - slot_was_set:
+    - date_time: 后天
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - intent: thanks
+  - action: utter_thanks
+- story: weather_story2
+  steps:
+  - intent: request_weather
+  - action: weather_form
+  - active_loop: weather_form
+  - slot_was_set:
+    - requested_slot: date_time
+  - slot_was_set:
+    - date_time: 明天
+  - slot_was_set:
+    - requested_slot: address
+  - slot_was_set:
+    - address: 广州
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - or:
+    - intent: inform
+      entities:
+      - address: 上海
+    - intent: request_weather
+      entities:
+      - address: 深圳
+  - action: weather_form
+  - active_loop: weather_form
+  - slot_was_set:
+    - date_time: 明天
+  - slot_was_set:
+    - address: 广州
+  - slot_was_set:
+    - address: 上海
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - intent: affirm
+  - action: utter_affirm
+- story: weather_story3
+  steps:
+  - intent: request_weather
+    entities:
+    - date_time: 明天
+    - address: 上海
+  - action: weather_form
+  - active_loop: weather_form
+  - slot_was_set:
+    - date_time: 明天
+  - slot_was_set:
+    - address: 上海
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - or:
+    - intent: inform
+      entities:
+      - address: 广州
+    - intent: request_weather
+      entities:
+      - address: 广州
+  - action: weather_form
+  - active_loop: weather_form
+  - slot_was_set:
+    - date_time: 明天
+  - slot_was_set:
+    - address: 上海
+  - slot_was_set:
+    - address: 广州
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - intent: thanks
+  - action: utter_thanks
+- story: weather_story4
+  steps:
+  - intent: request_weather
+    entities:
+    - address: 深圳
+    - date_time: 后天
+  - action: weather_form
+  - active_loop: weather_form
+  - slot_was_set:
+    - date_time: 后天
+  - slot_was_set:
+    - address: 深圳
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - or:
+    - intent: inform
+      entities:
+      - date_time: 大后天
+    - intent: request_weather
+      entities:
+      - date_time: 大后天
+  - action: weather_form
+  - active_loop: weather_form
+  - slot_was_set:
+    - date_time: 后天
+  - slot_was_set:
+    - address: 深圳
+  - slot_was_set:
+    - date_time: 大后天
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - intent: thanks
+  - action: utter_thanks
+- story: weather_story5
+  steps:
+  - intent: request_weather
+    entities:
+    - date_time: 明天
+    - address: 上海
+  - action: weather_form
+  - active_loop: weather_form
+  - slot_was_set:
+    - date_time: 明天
+  - slot_was_set:
+    - address: 上海
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - or:
+    - intent: inform
+      entities:
+      - address: 北京
+    - intent: request_weather
+      entities:
+      - address: 北京
+  - action: weather_form
+  - active_loop: weather_form
+  - slot_was_set:
+    - date_time: 明天
+  - slot_was_set:
+    - address: 上海
+  - slot_was_set:
+    - address: 北京
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - or:
+    - intent: inform
+      entities:
+      - date_time: 后天
+    - intent: request_weather
+      entities:
+      - date_time: 后天
+  - action: weather_form
+  - active_loop: weather_form
+  - slot_was_set:
+    - date_time: 明天
+  - slot_was_set:
+    - address: 北京
+  - slot_was_set:
+    - date_time: 后天
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - intent: affirm
+  - action: utter_affirm
+- story: weather_story6
+  steps:
+  - intent: request_weather
+    entities:
+    - date_time: 后天
+    - address: 北京
+  - action: weather_form
+  - active_loop: weather_form
+  - slot_was_set:
+    - date_time: 后天
+  - slot_was_set:
+    - address: 北京
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - or:
+    - intent: inform
+      entities:
+      - address: 深圳
+    - intent: request_weather
+      entities:
+      - address: 深圳
+  - action: weather_form
+  - active_loop: weather_form
+  - slot_was_set:
+    - date_time: 后天
+  - slot_was_set:
+    - address: 北京
+  - slot_was_set:
+    - address: 深圳
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - or:
+    - intent: inform
+      entities:
+      - address: 南京
+    - intent: request_weather
+      entities:
+      - address: 南京
+  - action: weather_form
+  - active_loop: weather_form
+  - slot_was_set:
+    - date_time: 后天
+  - slot_was_set:
+    - address: 深圳
+  - slot_was_set:
+    - address: 南京
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - intent: thanks
+  - action: utter_thanks
+- story: weather_story6
+  steps:
+  - intent: request_weather
+    entities:
+    - date_time: 明天
+    - address: 长沙
+  - action: weather_form
+  - active_loop: weather_form
+  - slot_was_set:
+    - date_time: 明天
+  - slot_was_set:
+    - address: 长沙
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - or:
+    - intent: inform
+      entities:
+      - date_time: 后天
+    - intent: request_weather
+      entities:
+      - date_time: 后天
+  - action: weather_form
+  - active_loop: weather_form
+  - slot_was_set:
+    - date_time: 明天
+  - slot_was_set:
+    - address: 长沙
+  - slot_was_set:
+    - date_time: 后天
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - or:
+    - intent: inform
+      entities:
+      - date_time: 大后天
+    - intent: request_weather
+      entities:
+      - date_time: 大后天
+  - action: weather_form
+  - active_loop: weather_form
+  - slot_was_set:
+    - date_time: 后天
+  - slot_was_set:
+    - address: 长沙
+  - slot_was_set:
+    - date_time: 大后天
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - intent: affirm
+  - action: utter_affirm
+- story: weather_story7
+  steps:
+  - intent: request_weather
+    entities:
+    - date_time: 后天
+    - address: 深圳
+  - action: weather_form
+  - active_loop: weather_form
+  - slot_was_set:
+    - date_time: 后天
+  - slot_was_set:
+    - address: 深圳
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - or:
+    - intent: inform
+      entities:
+      - date_time: 明天
+    - intent: request_weather
+      entities:
+      - date_time: 明天
+  - action: weather_form
+  - active_loop: weather_form
+  - slot_was_set:
+    - date_time: 后天
+  - slot_was_set:
+    - address: 深圳
+  - slot_was_set:
+    - date_time: 明天
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - or:
+    - intent: inform
+      entities:
+      - address: 广州
+    - intent: request_weather
+      entities:
+      - address: 广州
+  - action: weather_form
+  - active_loop: weather_form
+  - slot_was_set:
+    - date_time: 明天
+  - slot_was_set:
+    - address: 深圳
+  - slot_was_set:
+    - address: 广州
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - intent: thanks
+  - action: utter_thanks
+
+- story: weather_story8
+  steps:
+  - intent: request_weather
+    entities:
+    - date_time: 明天
+  - action: weather_form
+  - active_loop: weather_form
+  - slot_was_set:
+    - date_time: 明天
+  - slot_was_set:
+    - requested_slot: address
+  - slot_was_set:
+    - address: 广州
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - or:
+    - intent: inform
+      entities:
+      - date_time: 后天
+    - intent: request_weather
+      entities:
+      - date_time: 后天
+  - action: weather_form
+  - active_loop: weather_form
+  - slot_was_set:
+    - date_time: 明天
+  - slot_was_set:
+    - address: 广州
+  - slot_was_set:
+    - date_time: 后天
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - intent: thanks
+  - action: utter_thanks
+
+- story: weather_story9
+  steps:
+  - intent: request_weather
+    entities:
+    - address: 广州
+  - action: weather_form
+  - active_loop: weather_form
+  - slot_was_set:
+    - address: 广州
+  - slot_was_set:
+    - requested_slot: date_time
+  - slot_was_set:
+    - date_time: 后天
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - or:
+    - intent: inform
+      entities:
+      - date_time: 明天
+    - intent: request_weather
+      entities:
+      - date_time: 明天
+  - action: weather_form
+  - active_loop: weather_form
+  - slot_was_set:
+    - date_time: 后天
+  - slot_was_set:
+    - address: 广州
+  - slot_was_set:
+    - date_time: 明天
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - intent: thanks
+  - action: utter_thanks
+
+- story: weather_story10
+  steps:
+  - intent: request_weather
+    entities:
+    - date_time: 今天
+    - address: 广州
+  - action: weather_form
+  - active_loop: weather_form
+  - slot_was_set:
+    - date_time: 今天
+  - slot_was_set:
+    - address: 广州
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - intent: chitchat
+  - action: utter_chitchat
+  - intent: chitchat
+  - action: utter_chitchat
+  - action: action_restart
+  - intent: request_weather
+  - action: weather_form
+  - active_loop: weather_form
+  - slot_was_set:
+    - requested_slot: date_time
+  - slot_was_set:
+    - date_time: 今天
+  - slot_was_set:
+    - requested_slot: address
+  - slot_was_set:
+    - address: 广州
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - intent: thanks
+  - action: utter_thanks
